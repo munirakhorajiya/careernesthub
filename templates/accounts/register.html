@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Register - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Create your account</h2>
+  <p class="subtitle">Join as a student or as a hiring company.</p>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <label>Full name</label>
+    <input type="text" name="name" placeholder="Full name" required>
+    <label>Email</label>
+    <input type="email" name="email" placeholder="Email" required>
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Password" required>
+    <label>Phone</label>
+    <input type="text" name="phone" placeholder="10-digit phone" pattern="[0-9]{10}" required>
+    <label>Account type</label>
+    <select name="account_type" id="reg_type" required onchange="document.getElementById('company_fields').style.display = this.value==='provider' ? 'block' : 'none'">
+      <option value="">Select Account Type</option>
+      <option value="user">Student / User</option>
+      <option value="provider">Company / Provider</option>
+    </select>
+    <div id="company_fields" style="display:none">
+      <label>Company name</label>
+      <input type="text" name="company_name" placeholder="Company name">
+      <label>Description</label>
+      <textarea name="description" placeholder="What does your company do?"></textarea>
+      <label>Address</label>
+      <textarea name="address" placeholder="Address"></textarea>
+    </div>
+    <button class="btn" type="submit">Register</button>
+  </form>
+  <p style="text-align:center;font-size:14px">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

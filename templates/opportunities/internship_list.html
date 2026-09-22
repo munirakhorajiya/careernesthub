@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Internships - CareerNestHub{% endblock %}
+{% block hero %}
+<div class="hero"><div class="hero-inner"><h1>Internships that build skills</h1><p>Short, practical roles with stipends.</p></div></div>
+{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>Open Internships</h2><p class="subtitle">Learn while you earn.</p></div></div>
+<div class="grid">
+{% for i in internship %}
+  <div class="card list-card">
+    <span class="badge gold">Internship · {{ i.duration }}</span>
+    <h3>{{ i.title }}</h3>
+    <div class="meta"><span>{{ i.provider.company_name }}</span><span>{{ i.location }}</span><span>Stipend: {{ i.stipend }}</span></div>
+    <a class="btn small" href="{% url 'internship_details' i.id %}">View Internship</a>
+  </div>
+{% empty %}
+  <div class="card empty">No internships available right now.</div>
+{% endfor %}
+</div>
+{% endblock %}

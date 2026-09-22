@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}My Applications - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>My Applications</h2><p class="subtitle">Track everything you applied for.</p></div></div>
+<div class="grid">
+{% for i in application %}
+  <div class="card list-card">
+    {% if i.job %}<span class="badge">Job</span><h3>{{ i.job.title }}</h3><div class="meta"><span>{{ i.job.provider.company_name }}</span><span>{{ i.job.location }}</span></div>{% endif %}
+    {% if i.internship %}<span class="badge gold">Internship</span><h3>{{ i.internship.title }}</h3><div class="meta"><span>{{ i.internship.provider.company_name }}</span><span>{{ i.internship.location }}</span></div>{% endif %}
+    <div class="meta"><span>Status: <b>{{ i.status }}</b></span><span>{{ i.applied_date }}</span></div>
+  </div>
+{% empty %}
+  <div class="card empty"><p>You have not applied yet.</p><div class="action-row" style="justify-content:center"><a class="btn small" href="{% url 'job_list' %}">Browse Jobs</a><a class="btn small secondary" href="{% url 'internship_list' %}">Browse Internships</a></div></div>
+{% endfor %}
+</div>
+{% endblock %}

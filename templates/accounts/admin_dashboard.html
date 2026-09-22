@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>Admin Dashboard</h2><p class="subtitle">Welcome, {{ request.user.username }} (admin only)</p></div><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div>
+<div class="stats">
+  <div class="stat"><b>{{ user_count }}</b><span>Total Users</span></div>
+  <div class="stat"><b>{{ provider_count }}</b><span>Total Providers</span></div>
+</div>
+<div class="action-row">
+  <a class="btn" href="/admin/">Open Django Admin Panel</a>
+  <a class="btn secondary" href="{% url 'user_list' %}">Manage Users</a>
+  <a class="btn secondary" href="{% url 'provider_list' %}">Manage Providers</a>
+</div>
+{% endblock %}

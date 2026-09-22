@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Courses - CareerNestHub{% endblock %}
+{% block hero %}
+<div class="hero"><div class="hero-inner"><h1>Practical courses, fair prices</h1><p>Learn job-ready skills from real companies.</p></div></div>
+{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>All Courses</h2><p class="subtitle">Enroll and start learning.</p></div></div>
+<div class="grid">
+{% for c in cource %}
+  <div class="card list-card">
+    <span class="badge">Course · {{ c.duration }}</span>
+    <h3>{{ c.title }}</h3>
+    <div class="meta"><span>{{ c.provider.company_name }}</span><span>₹{{ c.price }}</span></div>
+    <a class="btn small" href="{% url 'cource_detail' c.id %}">View Course</a>
+  </div>
+{% empty %}
+  <div class="card empty">No courses available right now.</div>
+{% endfor %}
+</div>
+{% endblock %}

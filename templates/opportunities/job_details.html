@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ job.title }} - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card">
+  <span class="badge">Full-time</span>
+  <h1 style="margin:8px 0">{{ job.title }}</h1>
+  <p class="subtitle">{{ job.provider.company_name }} · {{ job.location }} · {{ job.salary }}</p>
+  <hr style="border:none;border-top:1px solid var(--line)">
+  <p><b>Description:</b> {{ job.description }}</p>
+  <p><b>Skills:</b> {{ job.skills }}</p>
+  <div class="action-row">
+  {% if request.session.account_type == 'user' %}
+    <a class="btn" href="{% url 'job_apply' job.id %}">Apply Now</a>
+  {% elif request.session.account_type == 'provider' %}
+    <span class="badge gold">Providers can only post jobs — <a href="{% url 'provider_applications' %}">View Applicants</a></span>
+    {% if request.session.provider_id == job.provider.id %}
+      <a class="btn dark small" href="{% url 'job_delete' job.id %}" onclick="return confirm('Delete this job? Applications for it will also be deleted.');">Delete Job</a>
+    {% endif %}
+  {% else %}
+    <a class="btn" href="{% url 'login' %}">Login to Apply</a>
+  {% endif %}
+  <a class="btn secondary" href="{% url 'job_list' %}">Back to Jobs</a></div>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Post a Job - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Post a Job</h2>
+  <p class="subtitle">Reach students and freshers.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Title</label><input name="title" placeholder="e.g. Junior Python Developer" required>
+    <label>Description</label><textarea name="description" placeholder="Role, responsibilities..." required></textarea>
+    <label>Location</label><input name="location" placeholder="e.g. Remote / Mumbai" required>
+    <label>Salary</label><input name="salary" placeholder="e.g. 4-6 LPA" required>
+    <label>Skills</label><textarea name="skills" placeholder="e.g. Python, Django" required></textarea>
+    <button class="btn" type="submit">Post Job</button>
+  </form>
+</div>
+{% endblock %}

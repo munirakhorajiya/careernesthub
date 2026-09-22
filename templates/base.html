@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}CareerNestHub - Jobs, Internships & Courses{% endblock %}</title>
+<style>
+:root{
+  --navy:#1a2b4a; --teal:#0e9f9a; --teal-dark:#0b7d79;
+  --amber:#f59e0b; --bg:#f4f6fb; --card:#ffffff;
+  --text:#1e293b; --muted:#64748b; --line:#e2e8f0; --radius:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--teal-dark)}
+/* NAVBAR */
+.navbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:50}
+.nav-inner{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:19px;white-space:nowrap}
+.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#2563eb);display:flex;align-items:center;justify-content:center;font-weight:900}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{color:#dbe4f0;text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
+.nav-links a:hover{background:rgba(255,255,255,.12);color:#fff}
+.nav-links a.active,.nav-links a.highlight{background:var(--amber);color:#1a2b4a}
+.menu-toggle{display:none}
+.hamburger{display:none;margin-left:auto;cursor:pointer;font-size:22px;color:#fff}
+/* HERO */
+.hero{background:linear-gradient(135deg,#1a2b4a 0%,#23407a 55%,#0e9f9a 100%);color:#fff}
+.hero-inner{max-width:1100px;margin:0 auto;padding:44px 20px 36px}
+.hero h1{margin:0 0 8px;font-size:34px;line-height:1.15}
+.hero p{margin:0 0 18px;color:#d3e2f5;max-width:640px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+/* LAYOUT */
+.container{max-width:1100px;margin:0 auto;padding:22px 20px 40px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 4px 14px rgba(26,43,74,.06)}
+.page-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:4px 0 16px;flex-wrap:wrap}
+.page-head h1,.page-head h2{margin:0}
+.subtitle{color:var(--muted);margin:6px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.list-card{display:flex;flex-direction:column;gap:8px}
+.list-card h3{margin:0;font-size:18px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+.badge{display:inline-block;background:#e6f7f6;color:#0b6e6a;border:1px solid #bfe9e7;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
+.badge.gold{background:#fef3c7;color:#92400e;border-color:#fde68a}
+.btn{display:inline-block;background:var(--teal);color:#fff !important;text-decoration:none;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;text-align:center}
+.btn:hover{background:var(--teal-dark)}
+.btn.secondary{background:#fff;color:var(--navy) !important;border:1px solid var(--line)}
+.btn.dark{background:var(--navy)}
+.btn.small{padding:7px 12px;font-size:13px}
+/* FORMS */
+.form-wrap{max-width:520px;margin:0 auto}
+.form-wrap label{font-size:13px;font-weight:700;color:var(--navy);display:block;text-align:left;margin:10px 0 4px}
+input,textarea,select{width:100%;padding:11px 12px;margin:0;border-radius:10px;border:1px solid var(--line);font-size:14px;background:#fff}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--teal);border-color:var(--teal)}
+textarea{min-height:90px;resize:vertical}
+.form-wrap button.btn{width:100%;margin-top:14px}
+.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:10px 12px;border-radius:10px;font-size:14px}
+.searchbar{display:flex;gap:8px;flex-wrap:wrap}
+.searchbar input{flex:1;min-width:200px}
+/* PROFILE / STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+.stat{background:#f0fdfa;border:1px solid #bfe9e7;border-radius:12px;padding:14px;text-align:center}
+.stat b{font-size:24px;display:block;color:var(--navy)}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:8px;text-align:left;font-size:14px}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.empty{text-align:center;color:var(--muted);padding:26px 10px}
+/* FOOTER */
+.footer{background:var(--navy);color:#cbd5e1;margin-top:20px}
+.footer-inner{max-width:1100px;margin:0 auto;padding:26px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
+.footer a{color:#e2e8f0;text-decoration:none;font-size:14px}
+.footer a:hover{text-decoration:underline}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.15);text-align:center;padding:12px;font-size:12px;color:#94a3b8}
+@media(max-width:760px){
+  .hero h1{font-size:26px}
+  .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-bottom:10px}
+  .menu-toggle:checked ~ .nav-inner .nav-links{display:flex}
+  .hamburger{display:block}
+  .nav-inner{flex-wrap:wrap}
+  .footer-inner{grid-template-columns:1fr}
+  .kv{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="navbar">
+  <input type="checkbox" id="menu" class="menu-toggle">
+  <div class="nav-inner">
+    <a class="brand" href="/"><span class="brand-mark">C</span> CareerNestHub</a>
+    <label class="hamburger" for="menu">&#9776;</label>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="{% url 'job_list' %}">Jobs</a>
+      <a href="{% url 'internship_list' %}">Internships</a>
+      <a href="{% url 'cource_list' %}">Courses</a>
+      {% if request.session.account_type == 'admin' or request.user.is_staff %}
+        <a class="highlight" href="{% url 'admin_dashboard' %}">Admin Panel</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% elif request.session.account_type == 'user' %}
+        <a href="{% url 'user_profile' %}">My Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% elif request.session.account_type == 'provider' %}
+        <a href="{% url 'provider_profile' %}">Dashboard</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a class="highlight" href="{% url 'register' %}">Join Free</a>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+{% block hero %}
+<div class="hero">
+  <div class="hero-inner">
+    <h1>Find jobs, internships & skill courses in one nest.</h1>
+    <p>Simple listings for students and easy posting for companies. No clutter — just apply or enroll.</p>
+    <div class="hero-actions">
+      <a class="btn" href="{% url 'job_list' %}">Browse Jobs</a>
+      <a class="btn secondary" href="{% url 'internship_list' %}">Find Internships</a>
+      <a class="btn secondary" href="{% url 'cource_list' %}">Explore Courses</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<main class="container">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <b style="color:#fff">CareerNestHub</b>
+      <p style="font-size:14px">Jobs, internships and practical courses for students and freshers.</p>
+    </div>
+    <div>
+      <b style="color:#fff">Explore</b><br>
+      <a href="{% url 'job_list' %}">Jobs</a><br>
+      <a href="{% url 'internship_list' %}">Internships</a><br>
+      <a href="{% url 'cource_list' %}">Courses</a>
+    </div>
+    <div>
+      <b style="color:#fff">Account</b><br>
+      <a href="{% url 'login' %}">Login</a><br>
+      <a href="{% url 'register' %}">Register</a><br>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 CareerNestHub — Original simple design. All rights reserved.</div>
+</footer>
+</body>
+</html>

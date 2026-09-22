@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Applicants - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>Applicants</h2><p class="subtitle">Accept or Reject job / internship applications.</p></div></div>
+<div class="grid">
+{% for a in applications %}
+  <div class="card list-card">
+    {% if a.job %}<span class="badge">Job: {{ a.job.title }}</span>{% endif %}
+    {% if a.internship %}<span class="badge gold">Internship: {{ a.internship.title }}</span>{% endif %}
+    <h3>{{ a.user.name }}</h3>
+    <div class="meta"><span>{{ a.user.email }}</span><span>{{ a.applied_date }}</span><span>Status: <b>{{ a.status }}</b></span></div>
+    <div class="action-row">
+      {% if a.status == 'Pending' %}
+        <a class="btn small" href="{% url 'update_status' a.id 'Accepted' %}">Accept</a>
+        <a class="btn small secondary" href="{% url 'update_status' a.id 'Rejected' %}">Reject</a>
+      {% elif a.status == 'Accepted' %}
+        <a class="btn small dark" href="{% url 'update_status' a.id 'Completed' %}">Complete</a>
+      {% endif %}
+    </div>
+  </div>
+{% empty %}
+  <div class="card empty">No applications yet.</div>
+{% endfor %}
+</div>
+{% endblock %}

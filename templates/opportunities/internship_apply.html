@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Apply for Internship - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Apply for Internship</h2>
+  <p class="subtitle">Submit your application details.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Name</label><input type="text" name="title" placeholder="Your name" required>
+    <label>Location</label><input type="text" name="location" placeholder="Your location" required>
+    <label>About you</label><textarea name="description" placeholder="Brief intro" required></textarea>
+    <label>Expected stipend</label><input type="text" name="stipend" placeholder="Expected stipend" required>
+    <label>Duration</label><input type="text" name="duration" placeholder="Available duration" required>
+    <label>Skills</label><textarea name="skills" placeholder="Your skills"></textarea>
+    <button class="btn" type="submit">Submit Application</button>
+  </form>
+</div>
+{% endblock %}

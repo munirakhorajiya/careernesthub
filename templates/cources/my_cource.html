@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}My Courses - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>My Courses</h2><p class="subtitle">Courses you posted.</p></div><a class="btn small" href="{% url 'cource_create' %}">+ Post Course</a></div>
+<div class="grid">
+{% for c in cource %}
+  <div class="card list-card"><h3>{{ c.title }}</h3><div class="meta"><span>₹{{ c.price }}</span><span>{{ c.duration }}</span></div><a class="btn small secondary" href="{% url 'cource_detail' c.id %}">View</a></div>
+{% empty %}
+  <div class="card empty">No courses posted yet.</div>
+{% endfor %}
+</div>
+{% endblock %}

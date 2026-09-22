@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Post a Course - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Post a Course</h2>
+  <p class="subtitle">Share your expertise with students.</p>
+  <form method="POST">
+    {% csrf_token %}
+    <label>Title</label><input name="title" placeholder="e.g. Django for Beginners" required>
+    <label>Price</label><input name="price" placeholder="e.g. 999" required>
+    <label>Duration</label><input name="duration" placeholder="e.g. 4 weeks" required>
+    <button class="btn" type="submit">Post Course</button>
+  </form>
+</div>
+{% endblock %}

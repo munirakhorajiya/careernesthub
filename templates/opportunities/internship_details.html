@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}{{ internship.title }} - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card">
+  <span class="badge gold">Internship · {{ internship.duration }}</span>
+  <h1 style="margin:8px 0">{{ internship.title }}</h1>
+  <p class="subtitle">{{ internship.provider.company_name }} · {{ internship.location }} · Stipend: {{ internship.stipend }}</p>
+  <hr style="border:none;border-top:1px solid var(--line)">
+  <p><b>Description:</b> {{ internship.description }}</p>
+  <p><b>Skills:</b> {{ internship.skills }}</p>
+  <div class="action-row">
+  {% if request.session.account_type == 'user' %}
+    <a class="btn" href="{% url 'internship_apply' internship.id %}">Apply Now</a>
+  {% elif request.session.account_type == 'provider' %}
+    <span class="badge gold">Providers can only post — <a href="{% url 'provider_applications' %}">View Applicants</a></span>
+  {% else %}
+    <a class="btn" href="{% url 'login' %}">Login to Apply</a>
+  {% endif %}
+  <a class="btn secondary" href="{% url 'internship_list' %}">Back to Internships</a></div>
+</div>
+{% endblock %}

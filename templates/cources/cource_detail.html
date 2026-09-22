@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{{ cource.title }} - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card">
+  <span class="badge">Course · {{ cource.duration }}</span>
+  <h1 style="margin:8px 0">{{ cource.title }}</h1>
+  <p class="subtitle">{{ cource.provider.company_name }} · ₹{{ cource.price }} · {{ cource.duration }}</p>
+  <div class="action-row">
+  {% if request.session.account_type == 'user' %}
+    <a class="btn" href="{% url 'cource_enroll' cource.id %}">Enroll Now</a>
+  {% elif request.session.account_type == 'provider' %}
+    <span class="badge gold">Providers can only post courses — <a href="{% url 'my_cource' %}">My Courses</a></span>
+  {% else %}
+    <a class="btn" href="{% url 'login' %}">Login to Enroll</a>
+  {% endif %}
+  <a class="btn secondary" href="{% url 'cource_list' %}">Back to Courses</a></div>
+</div>
+{% endblock %}

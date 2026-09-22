@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}My Profile - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>Welcome, {{ user.name }}</h2><p class="subtitle">{{ user.email }} · {{ user.phone }}</p></div><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div>
+<div class="grid">
+  <div class="card"><h3 style="margin:0">Jobs</h3><p class="subtitle">Full-time roles for freshers.</p><a class="btn small" href="{% url 'job_list' %}">Browse Jobs</a></div>
+  <div class="card"><h3 style="margin:0">Internships</h3><p class="subtitle">Hands-on experience.</p><a class="btn small" href="{% url 'internship_list' %}">Browse Internships</a></div>
+  <div class="card"><h3 style="margin:0">Courses</h3><p class="subtitle">Practical skill courses.</p><a class="btn small" href="{% url 'cource_list' %}">Browse Courses</a></div>
+  <div class="card"><h3 style="margin:0">My Enrollments</h3><p class="subtitle">Track your learning.</p><a class="btn small secondary" href="{% url 'my_enrollment' %}">View Enrollments</a></div>
+  <div class="card"><h3 style="margin:0">My Applications</h3><p class="subtitle">Track your applications.</p><a class="btn small secondary" href="{% url 'application_list' %}">View Applications</a></div>
+</div>
+<div class="card" style="margin-top:16px">
+  <h3 style="margin-top:0">Profile details</h3>
+  <dl class="kv"><dt>Name</dt><dd>{{ user.name }}</dd><dt>Email</dt><dd>{{ user.email }}</dd><dt>Phone</dt><dd>{{ user.phone }}</dd></dl>
+</div>
+{% endblock %}

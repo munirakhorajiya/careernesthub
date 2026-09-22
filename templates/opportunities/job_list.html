@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Jobs - CareerNestHub{% endblock %}
+{% block hero %}
+<div class="hero"><div class="hero-inner"><h1>Jobs for freshers & students</h1><p>Simple, verified openings from hiring companies.</p></div></div>
+{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>Open Jobs</h2><p class="subtitle">Apply in one click.</p></div></div>
+<div class="grid">
+{% for j in jobs %}
+  <div class="card list-card">
+    <span class="badge">Full-time</span>
+    <h3>{{ j.title }}</h3>
+    <div class="meta"><span>{{ j.provider.company_name }}</span><span>{{ j.location }}</span><span>{{ j.salary }}</span></div>
+    <div class="action-row">
+      <a class="btn small" href="{% url 'job_details' j.id %}">View Job</a>
+      {% if request.session.account_type == 'provider' and request.session.provider_id == j.provider.id %}
+        <a class="btn small secondary" href="{% url 'job_delete' j.id %}" onclick="return confirm('Delete {{ j.title }}?');">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+{% empty %}
+  <div class="card empty">No jobs available right now. Check back soon.</div>
+{% endfor %}
+</div>
+{% endblock %}

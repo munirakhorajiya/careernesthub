@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Company Dashboard - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>{{ provider.company_name }}</h2><p class="subtitle">{{ provider.name }} · {{ provider.email }} · {{ provider.phone }}</p></div><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div>
+<div class="card">
+  <p class="subtitle" style="margin-top:0">{{ provider.description }}</p>
+  <p style="font-size:14px;color:var(--muted)">{{ provider.address }}</p>
+  <div class="action-row">
+    <a class="btn small" href="{% url 'job_create' %}">+ Post Job</a>
+    <a class="btn small" href="{% url 'internship_create' %}">+ Post Internship</a>
+    <a class="btn small" href="{% url 'cource_create' %}">+ Post Course</a>
+    <a class="btn small secondary" href="{% url 'my_cource' %}">My Courses</a>
+    <a class="btn small dark" href="{% url 'provider_applications' %}">View Applicants</a>
+  </div>
+</div>
+<div class="grid" style="margin-top:16px">
+  <div class="card"><h3 style="margin:0">Jobs</h3><p class="subtitle">See live openings.</p><a class="btn small secondary" href="{% url 'job_list' %}">View Jobs</a></div>
+  <div class="card"><h3 style="margin:0">Internships</h3><p class="subtitle">See live internships.</p><a class="btn small secondary" href="{% url 'internship_list' %}">View Internships</a></div>
+  <div class="card"><h3 style="margin:0">Courses</h3><p class="subtitle">See all courses.</p><a class="btn small secondary" href="{% url 'cource_list' %}">View Courses</a></div>
+</div>
+{% endblock %}

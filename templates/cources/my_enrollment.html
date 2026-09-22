@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}My Enrollments - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h2>My Enrollments</h2><p class="subtitle">Courses you joined.</p></div><a class="btn small secondary" href="{% url 'cource_list' %}">Find More Courses</a></div>
+<div class="grid">
+{% for e in enroll %}
+  <div class="card list-card"><h3>{{ e.cource.title }}</h3><div class="meta"><span>{{ e.cource.provider.company_name }}</span><span>₹{{ e.cource.price }}</span><span>Paid: {{ e.paid }}</span></div></div>
+{% empty %}
+  <div class="card empty">No enrollments found.</div>
+{% endfor %}
+</div>
+{% endblock %}
