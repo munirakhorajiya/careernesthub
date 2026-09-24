@@ -33,6 +33,7 @@ class Application(models.Model):
     internship=models.ForeignKey(Internship,on_delete=models.CASCADE,blank=True,null=True)
     status=models.CharField(max_length=50,default='Pending')
     applied_date=models.DateField(auto_now_add=True)
+    certificate=models.FileField(upload_to='certificates/',blank=True,null=True)
 
     def __str__(self):
         return self.user.name

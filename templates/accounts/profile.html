@@ -2,8 +2,57 @@
 {% block title %}Profile - CareerNestHub{% endblock %}
 {% block hero %}{% endblock %}
 {% block content %}
-<div class="card" style="text-align:center">
-  <h2 style="margin:0">Profile</h2>
-  <p class="subtitle">Name: {{ users.name }}</p>
+<div class="page-head"><div><h2>Profile</h2><p class="subtitle">Your account details.</p></div><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div>
+
+{% if user %}
+<div class="card">
+  <h3 style="margin-top:0">Welcome, {{ user.name }}</h3>
+  <dl class="kv">
+    <dt>Name</dt><dd>{{ user.name }}</dd>
+    <dt>Email</dt><dd>{{ user.email }}</dd>
+    <dt>Phone</dt><dd>{{ user.phone }}</dd>
+  </dl>
+  <div class="action-row">
+    <a class="btn small" href="{% url 'user_profile' %}">My Dashboard</a>
+    <a class="btn small secondary" href="{% url 'application_list' %}">My Applications</a>
+    <a class="btn small secondary" href="{% url 'my_enrollment' %}">My Enrollments</a>
+  </div>
 </div>
+{% elif provider %}
+<div class="card">
+  <h3 style="margin-top:0">{{ provider.company_name }}</h3>
+  <dl class="kv">
+    <dt>Contact</dt><dd>{{ provider.name }}</dd>
+    <dt>Email</dt><dd>{{ provider.email }}</dd>
+    <dt>Phone</dt><dd>{{ provider.phone }}</dd>
+    <dt>Address</dt><dd>{{ provider.address }}</dd>
+  </dl>
+  <p class="subtitle">{{ provider.description }}</p>
+  <div class="action-row">
+    <a class="btn small" href="{% url 'provider_profile' %}">Company Dashboard</a>
+    <a class="btn small secondary" href="{% url 'provider_applications' %}">View Applicants</a>
+  </div>
+</div>
+{% elif users %}
+<div class="card">
+  <h3 style="margin-top:0">Welcome, {{ users.name }}</h3>
+  <dl class="kv">
+    <dt>Name</dt><dd>{{ users.name }}</dd>
+    <dt>Email</dt><dd>{{ users.email }}</dd>
+    <dt>Phone</dt><dd>{{ users.phone }}</dd>
+  </dl>
+  <div class="action-row">
+    <a class="btn small" href="{% url 'user_profile' %}">My Dashboard</a>
+  </div>
+</div>
+{% else %}
+<div class="card empty">
+  <p>No profile context found. Please login as student or company.</p>
+  <div class="action-row" style="justify-content:center">
+    <a class="btn small" href="{% url 'login' %}">Login</a>
+    <a class="btn small secondary" href="{% url 'user_profile' %}">Student Profile</a>
+    <a class="btn small secondary" href="{% url 'provider_profile' %}">Company Dashboard</a>
+  </div>
+</div>
+{% endif %}
 {% endblock %}

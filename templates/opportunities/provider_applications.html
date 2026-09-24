@@ -16,8 +16,19 @@
         <a class="btn small secondary" href="{% url 'update_status' a.id 'Rejected' %}">Reject</a>
       {% elif a.status == 'Accepted' %}
         <a class="btn small dark" href="{% url 'update_status' a.id 'Completed' %}">Complete</a>
+      {% elif a.status == 'Completed' %}
+        <a class="btn small" href="{% url 'upload_certificate' a.id %}">{% if a.certificate %}Replace Certificate{% else %}Upload Certificate{% endif %}</a>
+        {% if a.certificate %}
+          <a class="btn small secondary" href="{{ a.certificate.url }}" target="_blank">View</a>
+          <a class="btn small secondary" href="{% url 'download_certificate' a.id %}">Download</a>
+        {% endif %}
       {% endif %}
     </div>
+    {% if a.status == 'Completed' and a.certificate %}
+      <div class="meta"><span>Certificate: Uploaded</span></div>
+    {% elif a.status == 'Completed' %}
+      <div class="meta"><span>Certificate: Not uploaded</span></div>
+    {% endif %}
   </div>
 {% empty %}
   <div class="card empty">No applications yet.</div>

@@ -2,16 +2,48 @@
 {% block title %}My Profile - CareerNestHub{% endblock %}
 {% block hero %}{% endblock %}
 {% block content %}
-<div class="page-head"><div><h2>Welcome, {{ user.name }}</h2><p class="subtitle">{{ user.email }} · {{ user.phone }}</p></div><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div>
-<div class="grid">
-  <div class="card"><h3 style="margin:0">Jobs</h3><p class="subtitle">Full-time roles for freshers.</p><a class="btn small" href="{% url 'job_list' %}">Browse Jobs</a></div>
-  <div class="card"><h3 style="margin:0">Internships</h3><p class="subtitle">Hands-on experience.</p><a class="btn small" href="{% url 'internship_list' %}">Browse Internships</a></div>
-  <div class="card"><h3 style="margin:0">Courses</h3><p class="subtitle">Practical skill courses.</p><a class="btn small" href="{% url 'cource_list' %}">Browse Courses</a></div>
-  <div class="card"><h3 style="margin:0">My Enrollments</h3><p class="subtitle">Track your learning.</p><a class="btn small secondary" href="{% url 'my_enrollment' %}">View Enrollments</a></div>
-  <div class="card"><h3 style="margin:0">My Applications</h3><p class="subtitle">Track your applications.</p><a class="btn small secondary" href="{% url 'application_list' %}">View Applications</a></div>
-</div>
-<div class="card" style="margin-top:16px">
-  <h3 style="margin-top:0">Profile details</h3>
+<div class="page-head"><div><h2>Welcome, {{ user.name }}</h2><p class="subtitle">{{ user.email }} · {{ user.phone }}</p></div><div class="action-row"><a class="btn small" href="{% url 'user_profile_edit' %}">Edit Profile</a><a class="btn secondary small" href="{% url 'logout' %}">Logout</a></div></div>
+
+<div class="card" style="margin-bottom:16px">
+  <h3 style="margin-top:0">Profile details <a class="btn small secondary" style="margin-left:10px" href="{% url 'user_profile_edit' %}">Edit</a></h3>
   <dl class="kv"><dt>Name</dt><dd>{{ user.name }}</dd><dt>Email</dt><dd>{{ user.email }}</dd><dt>Phone</dt><dd>{{ user.phone }}</dd></dl>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <h3 style="margin:0">Applied Jobs ({{ applied_jobs|length }})</h3>
+    {% for a in applied_jobs %}
+      <div class="card list-card" style="margin-top:10px">
+        <span class="badge">Job</span><h3>{{ a.job.title }}</h3>
+        <div class="meta"><span>{{ a.job.provider.company_name }}</span><span>{{ a.job.location }}</span></div>
+        <div class="meta"><span>Status: <b>{{ a.status }}</b></span><span>{{ a.applied_date }}</span></div>
+      </div>
+    {% empty %}
+      <p class="subtitle">No jobs applied yet. <a href="{% url 'job_list' %}">Browse Jobs</a></p>
+    {% endfor %}
+  </div>
+  <div class="card">
+    <h3 style="margin:0">Applied Internships ({{ applied_internships|length }})</h3>
+    {% for a in applied_internships %}
+      <div class="card list-card" style="margin-top:10px">
+        <span class="badge gold">Internship</span><h3>{{ a.internship.title }}</h3>
+        <div class="meta"><span>{{ a.internship.provider.company_name }}</span><span>{{ a.internship.location }}</span></div>
+        <div class="meta"><span>Status: <b>{{ a.status }}</b></span><span>{{ a.applied_date }}</span></div>
+      </div>
+    {% empty %}
+      <p class="subtitle">No internships applied yet. <a href="{% url 'internship_list' %}">Browse Internships</a></p>
+    {% endfor %}
+  </div>
+  <div class="card">
+    <h3 style="margin:0">Courses ({{ enrollments|length }})</h3>
+    {% for e in enrollments %}
+      <div class="card list-card" style="margin-top:10px">
+        <h3>{{ e.cource.title }}</h3>
+        <div class="meta"><span>{{ e.cource.provider.company_name }}</span><span>₹{{ e.cource.price }}</span><span>Paid: {{ e.paid }}</span></div>
+      </div>
+    {% empty %}
+      <p class="subtitle">No enrollments yet. <a href="{% url 'cource_list' %}">Explore Courses</a></p>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

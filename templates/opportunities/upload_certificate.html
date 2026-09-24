@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Upload Certificate - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Upload Certificate</h2>
+  <p class="subtitle">Issue completion certificate to {{ app.user.name }}.</p>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  <dl class="kv" style="margin:14px 0">
+    <dt>Applicant</dt><dd>{{ app.user.name }} ({{ app.user.email }})</dd>
+    {% if app.job %}
+      <dt>Job</dt><dd>{{ app.job.title }}</dd>
+    {% endif %}
+    {% if app.internship %}
+      <dt>Internship</dt><dd>{{ app.internship.title }}</dd>
+    {% endif %}
+    <dt>Status</dt><dd><span class="badge">{{ app.status }}</span></dd>
+    <dt>Applied on</dt><dd>{{ app.applied_date }}</dd>
+  </dl>
+
+  {% if app.certificate %}
+    <div class="card" style="background:#f0fdfa;margin-bottom:14px;padding:12px;text-align:center">
+      <p style="margin:0 0 8px;font-size:14px"><b>Current certificate uploaded.</b></p>
+      <a class="btn small secondary" href="{{ app.certificate.url }}" target="_blank">View Current</a>
+      <a class="btn small secondary" href="{% url 'download_certificate' app.id %}">Download</a>
+      <p class="subtitle" style="margin:8px 0 0">Uploading a new file will replace it.</p>
+    </div>
+  {% else %}
+    <div class="card" style="background:#fffbeb;border-color:#fde68a;margin-bottom:14px;padding:12px;text-align:center">
+      <p style="margin:0;font-size:14px">No certificate uploaded yet for this Completed application.</p>
+    </div>
+  {% endif %}
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Certificate File (Image / PDF)</label>
+    <input type="file" name="certificate" accept="image/*,.pdf" required>
+    <p class="subtitle">Accepted: JPG, PNG, WEBP or PDF. Max 5 MB.</p>
+    <button class="btn" type="submit">Upload Certificate</button>
+  </form>
+
+  <div class="action-row">
+    <a class="btn small secondary" href="{% url 'provider_applications' %}">Back to Applicants</a>
+  </div>
+</div>
+{% endblock %}

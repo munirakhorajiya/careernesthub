@@ -1,18 +1,16 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from accounts.models import User,ServiceProvider
 from .models import Cource,Enrollmentno
 # Create your views here.
 
 def cource_detail(request,id):
-    if 'user_id' not in request.session and 'provider_id' not in request.session:
-        return redirect('login')
-    cource=Cource.objects.get(id=id)
+    # Public detail - template shows Login to Enroll for guests
+    cource=get_object_or_404(Cource,id=id)
     return render(request,'cources/cource_detail.html',{'cource':cource})
 
 def cource_list(request):
-    if 'user_id' not in request.session and 'provider_id' not in request.session:
-        return redirect('login')
-    cource=Cource.objects.all()
+    # Public list - anyone can see
+    cource=Cource.objects.all().order_by('-id')
     return render(request,'cources/cource_list.html',{'cource':cource})
 
 def cource_create(request):

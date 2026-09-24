@@ -9,6 +9,14 @@
     {% if i.job %}<span class="badge">Job</span><h3>{{ i.job.title }}</h3><div class="meta"><span>{{ i.job.provider.company_name }}</span><span>{{ i.job.location }}</span></div>{% endif %}
     {% if i.internship %}<span class="badge gold">Internship</span><h3>{{ i.internship.title }}</h3><div class="meta"><span>{{ i.internship.provider.company_name }}</span><span>{{ i.internship.location }}</span></div>{% endif %}
     <div class="meta"><span>Status: <b>{{ i.status }}</b></span><span>{{ i.applied_date }}</span></div>
+    {% if i.status == 'Completed' and i.certificate %}
+      <div class="action-row">
+        <a class="btn small" href="{% url 'download_certificate' i.id %}">Download Certificate</a>
+        <a class="btn small secondary" href="{{ i.certificate.url }}" target="_blank">View</a>
+      </div>
+    {% elif i.status == 'Completed' %}
+      <div class="meta"><span>Certificate: Not issued yet</span></div>
+    {% endif %}
   </div>
 {% empty %}
   <div class="card empty"><p>You have not applied yet.</p><div class="action-row" style="justify-content:center"><a class="btn small" href="{% url 'job_list' %}">Browse Jobs</a><a class="btn small secondary" href="{% url 'internship_list' %}">Browse Internships</a></div></div>

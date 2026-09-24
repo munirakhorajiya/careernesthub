@@ -14,4 +14,6 @@ urlpatterns = [
     path('application/',views.application_list,name='application_list'),
     path('provider/applications/',views.provider_applications,name='provider_applications'),
     path('application/<int:id>/<str:action>/',views.update_status,name='update_status'),
+    path('application/<int:id>/certificate/upload/', views.upload_certificate, name='upload_certificate'),
+    path('application/<int:id>/certificate/download/', views.download_certificate, name='download_certificate'),
 ]

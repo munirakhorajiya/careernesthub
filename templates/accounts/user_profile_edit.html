@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Edit Profile - CareerNestHub{% endblock %}
+{% block hero %}{% endblock %}
+{% block content %}
+<div class="card form-wrap">
+  <h2 style="margin:0">Edit Profile</h2>
+  <p class="subtitle">Update all your details.</p>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <label>Full name</label>
+    <input type="text" name="name" value="{{ user.name }}" required>
+    <label>Email</label>
+    <input type="email" name="email" value="{{ user.email }}" required>
+    <label>Phone</label>
+    <input type="text" name="phone" value="{{ user.phone }}" pattern="[0-9]{10}" required>
+    <label>New Password (leave blank to keep old)</label>
+    <input type="password" name="password" placeholder="Enter new password or leave blank">
+    <button class="btn" type="submit">Save Changes</button>
+  </form>
+  <p style="text-align:center"><a href="{% url 'user_profile' %}">Back to Profile</a></p>
+</div>
+{% endblock %}

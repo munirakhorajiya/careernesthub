@@ -74,6 +74,7 @@ def login(request):
                 )
                 request.session['user_id']=user.id
                 request.session['account_type']='user'
+                request.session['user_name']=user.name
 
                 return redirect('user_profile')
             except User.DoesNotExist:
@@ -89,6 +90,7 @@ def login(request):
                 )
                 request.session['provider_id']=provider.id
                 request.session['account_type']='provider'
+                request.session['provider_name']=provider.company_name or provider.name
 
                 return redirect('provider_profile')
 
@@ -125,7 +127,53 @@ def user_profile(request):
         id=request.session['user_id']
     )
 
-    return render(request,'accounts/user_profile.html',{'user':user})
+    # Lazy imports to avoid circular import (opportunities/cource import accounts)
+    from opportunities.models import Application
+    from cource.models import Enrollmentno
+
+    applications = Application.objects.filter(user=user).select_related('job', 'internship').order_by('-id')
+    applied_jobs = [a for a in applications if a.job_id]
+    applied_internships = [a for a in applications if a.internship_id]
+    enrollments = Enrollmentno.objects.filter(user=user).select_related('cource').order_by('-id')
+
+    return render(request,'accounts/user_profile.html',{
+        'user':user,
+        'applications':applications,
+        'applied_jobs':applied_jobs,
+        'applied_internships':applied_internships,
+        'enrollments':enrollments,
+    })
+
+def user_profile_edit(request):
+    if 'user_id' not in request.session or request.session.get('account_type') != 'user':
+        return redirect('login')
+    user = User.objects.get(id=request.session['user_id'])
+    error = None
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        phone = request.POST.get('phone', '').strip()
+        password = request.POST.get('password', '').strip()
+        if not name:
+            error = 'Name is required.'
+        elif not email:
+            error = 'Email is required.'
+        elif User.objects.filter(email=email).exclude(id=user.id).exists():
+            error = 'This email is already used by another account.'
+        elif phone and (len(phone) != 10 or not phone.isdigit()):
+            error = 'Phone must be 10 digits.'
+        elif password and len(password) < 4:
+            error = 'Password must be at least 4 characters.'
+        else:
+            user.name = name
+            user.email = email
+            user.phone = phone
+            if password:
+                user.password = password
+            user.save()
+            request.session['user_name'] = user.name
+            return redirect('user_profile')
+    return render(request, 'accounts/user_profile_edit.html', {'user': user, 'error': error})
 
 def provider_profile(request):
 

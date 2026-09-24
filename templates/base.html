@@ -65,6 +65,14 @@ textarea{min-height:90px;resize:vertical}
 .kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .empty{text-align:center;color:var(--muted);padding:26px 10px}
+/* PROFILE ICON */
+.profile-wrap{position:relative;display:inline-block}
+.profile-icon{width:36px;height:36px;border-radius:50%;background:var(--amber);color:#1a2b4a;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;border:2px solid #fff;text-decoration:none}
+a.profile-icon-link{text-decoration:none !important;background:none !important;padding:0 !important}
+.profile-menu{display:none;position:absolute;right:0;top:44px;background:#fff;min-width:220px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden;z-index:100}
+.profile-wrap:hover .profile-menu,.profile-wrap.open .profile-menu{display:block}
+.profile-menu a{display:block !important;color:var(--navy) !important;padding:10px 14px !important;font-size:14px !important}
+.profile-menu a:hover{background:#f1f5f9 !important}
 /* FOOTER */
 .footer{background:var(--navy);color:#cbd5e1;margin-top:20px}
 .footer-inner{max-width:1100px;margin:0 auto;padding:26px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
@@ -95,13 +103,35 @@ textarea{min-height:90px;resize:vertical}
       <a href="{% url 'cource_list' %}">Courses</a>
       {% if request.session.account_type == 'admin' or request.user.is_staff %}
         <a class="highlight" href="{% url 'admin_dashboard' %}">Admin Panel</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        <div class="profile-wrap" id="profileWrap">
+          <a class="profile-icon-link" href="{% url 'admin_dashboard' %}" onclick="toggleProfile(event)"><div class="profile-icon">A</div></a>
+          <div class="profile-menu">
+            <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+            <a href="{% url 'user_list' %}">Manage Users</a>
+            <a href="{% url 'provider_list' %}">Manage Providers</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
       {% elif request.session.account_type == 'user' %}
-        <a href="{% url 'user_profile' %}">My Profile</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        <div class="profile-wrap" id="profileWrap">
+          <a class="profile-icon-link" href="{% url 'user_profile' %}" onclick="toggleProfile(event)"><div class="profile-icon">{{ request.session.user_name|default:"U"|slice:":1"|upper }}</div></a>
+          <div class="profile-menu">
+            <a href="{% url 'user_profile' %}">Profile</a>
+            <a href="{% url 'application_list' %}">Applied Jobs / Internship</a>
+            <a href="{% url 'my_enrollment' %}">Courses</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
       {% elif request.session.account_type == 'provider' %}
-        <a href="{% url 'provider_profile' %}">Dashboard</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        <div class="profile-wrap" id="profileWrap">
+          <a class="profile-icon-link" href="{% url 'provider_profile' %}" onclick="toggleProfile(event)"><div class="profile-icon">{{ request.session.provider_name|default:"C"|slice:":1"|upper }}</div></a>
+          <div class="profile-menu">
+            <a href="{% url 'provider_profile' %}">Dashboard</a>
+            <a href="{% url 'provider_applications' %}">View Applicants</a>
+            <a href="{% url 'my_cource' %}">My Courses</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
       {% else %}
         <a href="{% url 'login' %}">Login</a>
         <a class="highlight" href="{% url 'register' %}">Join Free</a>
@@ -149,5 +179,15 @@ textarea{min-height:90px;resize:vertical}
   </div>
   <div class="footer-bottom">© 2026 CareerNestHub — Original simple design. All rights reserved.</div>
 </footer>
+<script>
+function toggleProfile(e){
+  // Single click opens menu, second click follows link.
+  // First click: open menu and stop navigation so user can choose.
+  var wrap = document.querySelector('.profile-wrap');
+  if(wrap && !wrap.classList.contains('open')){ e.preventDefault(); e.stopPropagation(); wrap.classList.add('open'); }
+  // if already open, allow link to work (go to profile)
+}
+document.addEventListener('click', function(){ document.querySelectorAll('.profile-wrap.open').forEach(function(el){ el.classList.remove('open'); }); });
+</script>
 </body>
 </html>
