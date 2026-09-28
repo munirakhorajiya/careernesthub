@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: careernesthub
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn careernesthub.wsgi:application"
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DATABASE_URL
+        fromDatabase:
+          name: careernesthub-db
+          property: connectionString
+
+databases:
+  - name: careernesthub-db
+    plan: free
