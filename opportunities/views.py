@@ -3,15 +3,32 @@ from django.db.models import Q as models_Q
 from .models import Job,Internship,Application
 from accounts.models import User,ServiceProvider
 from django.http import FileResponse,Http404
-
+from django.db.models import Q
+from cource.models import Cource
 # Create your views here.
 
 
 def job_list(request):
-    # Public list - anyone (guest, user, provider, admin) can see
-    jobs=Job.objects.all().order_by('-id')
+    q = request.GET.get('q', '').strip()
+    city = request.GET.get('city', '').strip()
+    skill = request.GET.get('skill', '').strip()
 
-    return render(request,'opportunities/job_list.html',{'jobs':jobs})
+    jobs = Job.objects.all().order_by('-id')
+
+    if q:
+        jobs = jobs.filter(
+            Q(title__icontains=q) |
+            Q(description__icontains=q) |
+            Q(skills__icontains=q)
+        )
+    if city:
+        jobs = jobs.filter(location__icontains=city)
+    if skill:
+        jobs = jobs.filter(skills__icontains=skill)
+
+    return render(request, 'opportunities/job_list.html', {
+        'jobs': jobs, 'q': q, 'city': city, 'skill': skill
+    })
 
 def job_details(request,id):
     # Public detail - template already shows Login to Apply for guests
@@ -55,9 +72,25 @@ def job_delete(request, id):
     return redirect('job_list')
 
 def internship_list(request):
-    # Public list - anyone can see
-    internship=Internship.objects.all().order_by('-id')
-    return render(request,'opportunities/internship_list.html',{'internship':internship})
+    # Public list - anyone can see, with search filter
+    q = request.GET.get('q', '').strip()
+    city = request.GET.get('city', '').strip()
+    skill = request.GET.get('skill', '').strip()
+
+    internship = Internship.objects.all().order_by('-id')
+
+    if q:
+        internship = internship.filter(
+            Q(title__icontains=q) |
+            Q(description__icontains=q) |
+            Q(skills__icontains=q)
+        )
+    if city:
+        internship = internship.filter(location__icontains=city)
+    if skill:
+        internship = internship.filter(skills__icontains=skill)
+
+    return render(request,'opportunities/internship_list.html',{'internship':internship,'q':q,'city':city,'skill':skill})
 
 def internship_details(request, id):
     # Public detail
@@ -210,4 +243,41 @@ def download_certificate(request,id):
     import os
     filename = os.path.basename(app.certificate.name)
     return FileResponse(app.certificate.open('rb'), as_attachment=True, filename=filename)
+
+def global_search(request):
+    q = request.GET.get('q', '').strip()
+    f_type = request.GET.get('type', 'all')
+
+    jobs = internships = courses = []
+    if q:
+        if f_type in ['all', 'jobs']:
+            jobs = Job.objects.filter(
+                Q(title__icontains=q) |
+                Q(description__icontains=q) |
+                Q(location__icontains=q) |
+                Q(skills__icontains=q)
+            ).order_by('-id')[:20]
+
+        if f_type in ['all', 'internships']:
+            internships = Internship.objects.filter(
+                Q(title__icontains=q) |
+                Q(description__icontains=q) |
+                Q(location__icontains=q) |
+                Q(skills__icontains=q)
+            ).order_by('-id')[:20]
+
+        if f_type in ['all', 'courses']:
+            courses = Cource.objects.filter(
+                Q(title__icontains=q) |
+                Q(duration__icontains=q)
+            ).order_by('-id')[:20]
+
+    return render(request, 'opportunities/search_result.html', {
+        'q': q, 'f_type': f_type,
+        'jobs': jobs, 'internships': internships, 'courses': courses
+    })
+
+
+
+
 

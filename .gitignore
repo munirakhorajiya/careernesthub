@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 db.sqlite3
 .env
+staticfiles/
+media/
+*.pyc
+api/__pycache__/

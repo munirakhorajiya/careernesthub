@@ -4,6 +4,13 @@
 <div class="hero"><div class="hero-inner"><h1>Jobs for freshers & students</h1><p>Simple, verified openings from hiring companies.</p></div></div>
 {% endblock %}
 {% block content %}
+<form method="GET" class="searchbar">
+  <input type="text" name="q" placeholder="Title python..." value="{{ q }}">
+  <input type="text" name="city" placeholder="City mumbai..." value="{{ city }}">
+  <input type="text" name="skill" placeholder="Skill django..." value="{{ skill }}">
+  <button class="btn small" type="submit">Filter</button>
+  <a href="{% url 'job_list' %}" class="btn small secondary">Clear</a>
+</form>
 <div class="page-head"><div><h2>Open Jobs</h2><p class="subtitle">Apply in one click.</p></div></div>
 <div class="grid">
 {% for j in jobs %}

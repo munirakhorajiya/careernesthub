@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,12 +22,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8cz+c*-ekp1je#)b!ik%e1u8z-9t!ni-bfo!a*wuie%+r0q^np'
+import os
+
+# Fallback key lets `runserver` work locally even if .env / env var is missing.
+# On Render, set DJANGO_SECRET_KEY in Environment Variables.
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-local-dev-only-change-me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# Locally: DEBUG=True by default. On Render: set DEBUG=False in env vars.
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = [".vercel.app", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://*.vercel.app", "https://*.onrender.com"]
 
 
 # Application definition
@@ -46,6 +54,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -84,6 +93,14 @@ DATABASES = {
     }
 }
 
+# Render Postgres: if DATABASE_URL is set (render.yaml adds it), use it.
+# Locally: no DATABASE_URL -> stays on sqlite3, nothing to install.
+if os.environ.get("DATABASE_URL"):
+    import dj_database_url
+    DATABASES["default"] = dj_database_url.parse(
+        os.environ["DATABASE_URL"], conn_max_age=600
+    )
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.1/ref/settings/#auth-password-validators
@@ -121,6 +138,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Email

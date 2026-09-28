@@ -16,4 +16,5 @@ urlpatterns = [
     path('application/<int:id>/<str:action>/',views.update_status,name='update_status'),
     path('application/<int:id>/certificate/upload/', views.upload_certificate, name='upload_certificate'),
     path('application/<int:id>/certificate/download/', views.download_certificate, name='download_certificate'),
+    path('search/', views.global_search, name='global_search'),
 ]

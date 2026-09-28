@@ -9,9 +9,17 @@ def cource_detail(request,id):
     return render(request,'cources/cource_detail.html',{'cource':cource})
 
 def cource_list(request):
-    # Public list - anyone can see
-    cource=Cource.objects.all().order_by('-id')
-    return render(request,'cources/cource_list.html',{'cource':cource})
+    # Public list - anyone can see, with search filter
+    from django.db.models import Q
+    q = request.GET.get('q', '').strip()
+    cource = Cource.objects.all().order_by('-id')
+    if q:
+        cource = cource.filter(
+            Q(title__icontains=q) |
+            Q(duration__icontains=q) |
+            Q(price__icontains=q)
+        )
+    return render(request,'cources/cource_list.html',{'cource':cource,'q':q})
 
 def cource_create(request):
     if 'provider_id' not in request.session:

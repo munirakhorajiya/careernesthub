@@ -4,6 +4,13 @@
 <div class="hero"><div class="hero-inner"><h1>Internships that build skills</h1><p>Short, practical roles with stipends.</p></div></div>
 {% endblock %}
 {% block content %}
+<form method="GET" class="searchbar">
+  <input type="text" name="q" placeholder="Title python..." value="{{ q }}">
+  <input type="text" name="city" placeholder="City mumbai..." value="{{ city }}">
+  <input type="text" name="skill" placeholder="Skill django..." value="{{ skill }}">
+  <button class="btn small" type="submit">Filter</button>
+  <a href="{% url 'internship_list' %}" class="btn small secondary">Clear</a>
+</form>
 <div class="page-head"><div><h2>Open Internships</h2><p class="subtitle">Learn while you earn.</p></div></div>
 <div class="grid">
 {% for i in internship %}

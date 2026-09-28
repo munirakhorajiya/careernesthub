@@ -5,13 +5,13 @@ from accounts.models import User,ServiceProvider
 
 @admin.register(Cource)
 class CourceModel(admin.ModelAdmin):
-    list_display=('provider','title','price','duration')
-    search_fields=('title',)
-    ordering=('-title',)
+    list_display=('id','provider','title','price','duration')
+    search_fields=('title','provider__company_name')
+    ordering=('-id',)
 
 @admin.register(Enrollmentno)
 class EnrollmentnoModel(admin.ModelAdmin):
-    list_display=('user','cource','paid')
-    search_fields=('cource',)
-    ordering=('-cource',)
+    list_display=('id','user','cource','paid')
+    search_fields=('cource__title','user__name','user__email')
+    ordering=('-id',)
 

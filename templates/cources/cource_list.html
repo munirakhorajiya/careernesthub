@@ -4,6 +4,11 @@
 <div class="hero"><div class="hero-inner"><h1>Practical courses, fair prices</h1><p>Learn job-ready skills from real companies.</p></div></div>
 {% endblock %}
 {% block content %}
+<form method="GET" class="searchbar">
+  <input type="text" name="q" placeholder="Search courses..." value="{{ q }}">
+  <button class="btn small" type="submit">Filter</button>
+  <a href="{% url 'cource_list' %}" class="btn small secondary">Clear</a>
+</form>
 <div class="page-head"><div><h2>All Courses</h2><p class="subtitle">Enroll and start learning.</p></div></div>
 <div class="grid">
 {% for c in cource %}

@@ -138,6 +138,18 @@ a.profile-icon-link{text-decoration:none !important;background:none !important;p
       {% endif %}
     </nav>
   </div>
+  <div style="background:#0f2444;padding:10px 20px;">
+    <form method="GET" action="{% url 'global_search' %}" class="searchbar" style="max-width:1100px;margin:0 auto;display:flex;gap:8px;">
+      <input type="text" name="q" placeholder="Search jobs, skills like python, city like mumbai..." value="{{ request.GET.q }}">
+      <select name="type" style="max-width:150px;">
+        <option value="all" {% if request.GET.type == 'all' %}selected{% endif %}>All</option>
+        <option value="jobs" {% if request.GET.type == 'jobs' %}selected{% endif %}>Jobs</option>
+        <option value="internships" {% if request.GET.type == 'internships' %}selected{% endif %}>Internships</option>
+        <option value="courses" {% if request.GET.type == 'courses' %}selected{% endif %}>Courses</option>
+      </select>
+      <button class="btn small" type="submit">Search</button>
+    </form>
+  </div>
 </header>
 
 {% block hero %}

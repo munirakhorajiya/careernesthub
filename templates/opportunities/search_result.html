@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Results for "{{ q }}"</h2>
+
+<h3>Jobs ({{ jobs|length }})</h3>
+{% for j in jobs %}
+  <div class="card"><a href="{% url 'job_details' j.id %}">{{ j.title }}</a> - {{ j.location }} - {{ j.skills }}</div>
+{% empty %}<p>No jobs found.</p>{% endfor %}
+
+<h3>Internships ({{ internships|length }})</h3>
+{% for i in internships %}
+  <div class="card"><a href="{% url 'internship_details' i.id %}">{{ i.title }}</a> - {{ i.location }}</div>
+{% empty %}<p>No internships found.</p>{% endfor %}
+
+<h3>Courses ({{ courses|length }})</h3>
+{% for c in courses %}
+  <div class="card"><a href="{% url 'cource_detail' c.id %}">{{ c.title }}</a></div>
+{% empty %}<p>No courses found.</p>{% endfor %}
+{% endblock %}
