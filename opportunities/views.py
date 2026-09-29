@@ -246,34 +246,54 @@ def download_certificate(request,id):
 
 def global_search(request):
     q = request.GET.get('q', '').strip()
+    location = request.GET.get('location', '').strip()
     f_type = request.GET.get('type', 'all')
 
     jobs = internships = courses = []
-    if q:
+    if q or location:
         if f_type in ['all', 'jobs']:
-            jobs = Job.objects.filter(
-                Q(title__icontains=q) |
-                Q(description__icontains=q) |
-                Q(location__icontains=q) |
-                Q(skills__icontains=q)
-            ).order_by('-id')[:20]
+            jobs = Job.objects.all()
+            if q:
+                jobs = jobs.filter(
+                    Q(title__icontains=q) |
+                    Q(description__icontains=q) |
+                    Q(location__icontains=q) |
+                    Q(skills__icontains=q)
+                )
+            if location:
+                jobs = jobs.filter(location__icontains=location)
+            jobs = jobs.order_by('-id')[:20]
 
         if f_type in ['all', 'internships']:
-            internships = Internship.objects.filter(
-                Q(title__icontains=q) |
-                Q(description__icontains=q) |
-                Q(location__icontains=q) |
-                Q(skills__icontains=q)
-            ).order_by('-id')[:20]
+            internships = Internship.objects.all()
+            if q:
+                internships = internships.filter(
+                    Q(title__icontains=q) |
+                    Q(description__icontains=q) |
+                    Q(location__icontains=q) |
+                    Q(skills__icontains=q)
+                )
+            if location:
+                internships = internships.filter(location__icontains=location)
+            internships = internships.order_by('-id')[:20]
 
         if f_type in ['all', 'courses']:
-            courses = Cource.objects.filter(
-                Q(title__icontains=q) |
-                Q(duration__icontains=q)
-            ).order_by('-id')[:20]
+            courses = Cource.objects.all()
+            if q:
+                courses = courses.filter(
+                    Q(title__icontains=q) |
+                    Q(duration__icontains=q)
+                )
+            courses = courses.order_by('-id')[:20]
+
+    display_q = q
+    if q and location:
+        display_q = f"{q} in {location}"
+    elif location and not q:
+        display_q = location
 
     return render(request, 'opportunities/search_result.html', {
-        'q': q, 'f_type': f_type,
+        'q': display_q, 'f_type': f_type,
         'jobs': jobs, 'internships': internships, 'courses': courses
     })
 

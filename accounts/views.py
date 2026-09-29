@@ -5,6 +5,23 @@ from django.contrib.auth import authenticate,login as auth_login, logout as auth
 from functools import wraps
 # Create your views here.
 
+def home(request):
+    # Public landing page with search bar + latest listings.
+    # Lazy imports to avoid circular import.
+    from opportunities.models import Job, Internship
+    from cource.models import Cource
+    latest_jobs = Job.objects.all().order_by('-id')[:6]
+    latest_internships = Internship.objects.all().order_by('-id')[:6]
+    latest_courses = Cource.objects.all().order_by('-id')[:6]
+    return render(request, 'accounts/home.html', {
+        'latest_jobs': latest_jobs,
+        'latest_internships': latest_internships,
+        'latest_courses': latest_courses,
+        'job_count': Job.objects.count(),
+        'internship_count': Internship.objects.count(),
+        'course_count': Cource.objects.count(),
+    })
+
 def admin_required(view_func):
     # Only admin (Django staff/superuser + session flag) can open
     @wraps(view_func)

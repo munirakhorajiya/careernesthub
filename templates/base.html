@@ -5,82 +5,100 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}CareerNestHub - Jobs, Internships & Courses{% endblock %}</title>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
 :root{
-  --navy:#1a2b4a; --teal:#0e9f9a; --teal-dark:#0b7d79;
-  --amber:#f59e0b; --bg:#f4f6fb; --card:#ffffff;
-  --text:#1e293b; --muted:#64748b; --line:#e2e8f0; --radius:14px;
+  --ink:#14102e; --violet:#7c3aed; --violet2:#4f46e5; --cyan:#06b6d4; --lime:#a3e635;
+  --amber:#fbbf24; --bg:#f6f4ff; --card:#ffffff;
+  --text:#1e1b3a; --muted:#6b6a8a; --line:#e9e4ff; --radius:20px;
+  --shadow:0 12px 32px rgba(76,29,149,.10);
+  --grad:linear-gradient(135deg,#7c3aed 0%,#4f46e5 45%,#06b6d4 100%);
 }
 *{box-sizing:border-box}
-body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
-a{color:var(--teal-dark)}
-/* NAVBAR */
-.navbar{background:var(--navy);color:#fff;position:sticky;top:0;z-index:50}
-.nav-inner{max-width:1100px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:19px;white-space:nowrap}
-.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--teal),#2563eb);display:flex;align-items:center;justify-content:center;font-weight:900}
+body{margin:0;font-family:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;background:
+  radial-gradient(900px 400px at 10% -5%,#ddd6fe 0%,transparent 60%),
+  radial-gradient(800px 380px at 95% 0%,#a5f3fc 0%,transparent 60%),
+  radial-gradient(700px 500px at 50% 110%,#fef9c3 0%,transparent 60%),
+  var(--bg);color:var(--text);min-height:100vh;}
+a{color:var(--violet2);text-decoration:none}
+/* NAVBAR - glass creative */
+.navbar{position:sticky;top:12px;z-index:50;max-width:1100px;margin:12px auto 0;border-radius:18px;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border:1px solid rgba(124,58,237,.14);box-shadow:var(--shadow);}
+.nav-inner{padding:10px 16px;display:flex;align-items:center;gap:14px;}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none;font-weight:800;font-size:18px;white-space:nowrap}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:var(--grad);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px;box-shadow:0 6px 16px rgba(124,58,237,.4);position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;width:22px;height:22px;border:2.5px solid rgba(255,255,255,.7);border-radius:50%;top:-6px;right:-6px;}
+.brand small{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--violet);line-height:1}
 .nav-links{display:flex;align-items:center;gap:4px;margin-left:auto;flex-wrap:wrap}
-.nav-links a{color:#dbe4f0;text-decoration:none;font-size:14px;font-weight:600;padding:8px 12px;border-radius:8px}
-.nav-links a:hover{background:rgba(255,255,255,.12);color:#fff}
-.nav-links a.active,.nav-links a.highlight{background:var(--amber);color:#1a2b4a}
+.nav-links a{color:#3b3860;text-decoration:none;font-size:14px;font-weight:700;padding:9px 14px;border-radius:999px;transition:.2s}
+.nav-links a:hover{background:#ede9fe;color:var(--ink);transform:translateY(-1px)}
+.nav-links a.highlight{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1005 !important;box-shadow:0 6px 16px rgba(245,158,11,.4);border:1px solid #f59e0b}
+.nav-links a.highlight:hover{filter:brightness(1.05)}
+.nav-links a.highlight-light{background:#fef9c3;color:#854d0e !important;border:1px solid #fde68a;box-shadow:0 4px 12px rgba(251,191,36,.25)}
+.nav-links a.highlight-light:hover{background:#fef08a;transform:translateY(-1px)}
 .menu-toggle{display:none}
-.hamburger{display:none;margin-left:auto;cursor:pointer;font-size:22px;color:#fff}
-/* HERO */
-.hero{background:linear-gradient(135deg,#1a2b4a 0%,#23407a 55%,#0e9f9a 100%);color:#fff}
-.hero-inner{max-width:1100px;margin:0 auto;padding:44px 20px 36px}
-.hero h1{margin:0 0 8px;font-size:34px;line-height:1.15}
-.hero p{margin:0 0 18px;color:#d3e2f5;max-width:640px}
+.hamburger{display:none;margin-left:auto;cursor:pointer;font-size:22px;color:var(--ink)}
+/* HERO default */
+.hero{background:var(--grad);color:#fff;position:relative;overflow:hidden;border-radius:0 0 32px 32px;}
+.hero::before{content:"";position:absolute;width:520px;height:520px;background:radial-gradient(circle,rgba(255,255,255,.22),transparent 65%);top:-180px;right:-120px;}
+.hero::after{content:"";position:absolute;width:420px;height:420px;border:60px solid rgba(255,255,255,.08);border-radius:50%;left:-140px;bottom:-180px;}
+.hero-inner{max-width:1100px;margin:0 auto;padding:48px 20px 42px;position:relative;z-index:1}
+.hero h1{margin:0 0 8px;font-size:36px;line-height:1.1;letter-spacing:-.02em}
+.hero p{margin:0 0 18px;color:#e0e7ff;max-width:640px}
 .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
 /* LAYOUT */
-.container{max-width:1100px;margin:0 auto;padding:22px 20px 40px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 4px 14px rgba(26,43,74,.06)}
-.page-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:4px 0 16px;flex-wrap:wrap}
-.page-head h1,.page-head h2{margin:0}
+.container{max-width:1100px;margin:0 auto;padding:22px 20px 44px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);transition:transform .2s, box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 18px 40px rgba(76,29,149,.14)}
+.page-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:6px 0 16px;flex-wrap:wrap}
+.page-head h1,.page-head h2{margin:0;letter-spacing:-.02em}
 .subtitle{color:var(--muted);margin:6px 0 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
-.list-card{display:flex;flex-direction:column;gap:8px}
-.list-card h3{margin:0;font-size:18px}
+.list-card{display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
+.list-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad);}
+.list-card h3{margin:6px 0 0;font-size:18px}
 .meta{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px}
-.badge{display:inline-block;background:#e6f7f6;color:#0b6e6a;border:1px solid #bfe9e7;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px}
-.badge.gold{background:#fef3c7;color:#92400e;border-color:#fde68a}
-.btn{display:inline-block;background:var(--teal);color:#fff !important;text-decoration:none;border:none;padding:10px 18px;border-radius:10px;font-weight:700;font-size:14px;cursor:pointer;text-align:center}
-.btn:hover{background:var(--teal-dark)}
-.btn.secondary{background:#fff;color:var(--navy) !important;border:1px solid var(--line)}
-.btn.dark{background:var(--navy)}
-.btn.small{padding:7px 12px;font-size:13px}
+.badge{display:inline-block;background:#ede9fe;color:#5b21b6;border:1px solid #ddd6fe;font-size:12px;font-weight:800;padding:4px 11px;border-radius:999px;align-self:flex-start}
+.badge.gold{background:#fef9c3;color:#854d0e;border-color:#fde68a}
+.btn{display:inline-block;background:var(--grad);color:#fff !important;text-decoration:none;border:none;padding:11px 20px;border-radius:999px;font-weight:800;font-size:14px;cursor:pointer;text-align:center;box-shadow:0 8px 20px rgba(124,58,237,.32);transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(124,58,237,.4)}
+.btn.secondary{background:#fff;color:var(--ink) !important;border:1.5px solid var(--line);box-shadow:none}
+.btn.dark{background:var(--ink);box-shadow:0 8px 20px rgba(20,16,46,.3)}
+.btn.small{padding:8px 14px;font-size:13px}
 /* FORMS */
 .form-wrap{max-width:520px;margin:0 auto}
-.form-wrap label{font-size:13px;font-weight:700;color:var(--navy);display:block;text-align:left;margin:10px 0 4px}
-input,textarea,select{width:100%;padding:11px 12px;margin:0;border-radius:10px;border:1px solid var(--line);font-size:14px;background:#fff}
-input:focus,textarea:focus,select:focus{outline:2px solid var(--teal);border-color:var(--teal)}
+.form-wrap label{font-size:13px;font-weight:800;color:var(--ink);display:block;text-align:left;margin:10px 0 4px}
+input,textarea,select{width:100%;padding:12px 14px;margin:0;border-radius:14px;border:1.5px solid var(--line);font-size:14px;background:#fff;font-family:inherit}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 4px rgba(124,58,237,.14)}
 textarea{min-height:90px;resize:vertical}
 .form-wrap button.btn{width:100%;margin-top:14px}
-.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:10px 12px;border-radius:10px;font-size:14px}
+.error{background:#fef2f2;border:1px solid #fecaca;color:#b91c1c;padding:10px 12px;border-radius:12px;font-size:14px}
 .searchbar{display:flex;gap:8px;flex-wrap:wrap}
 .searchbar input{flex:1;min-width:200px}
 /* PROFILE / STATS */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
-.stat{background:#f0fdfa;border:1px solid #bfe9e7;border-radius:12px;padding:14px;text-align:center}
-.stat b{font-size:24px;display:block;color:var(--navy)}
+.stat{background:linear-gradient(180deg,#faf5ff,#fff);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:center}
+.stat b{font-size:24px;display:block;color:var(--ink)}
 .kv{display:grid;grid-template-columns:150px 1fr;gap:8px;text-align:left;font-size:14px}
-.kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:600}
+.kv dt{color:var(--muted)} .kv dd{margin:0;font-weight:700}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
 .empty{text-align:center;color:var(--muted);padding:26px 10px}
 /* PROFILE ICON */
 .profile-wrap{position:relative;display:inline-block}
-.profile-icon{width:36px;height:36px;border-radius:50%;background:var(--amber);color:#1a2b4a;font-weight:900;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;border:2px solid #fff;text-decoration:none}
+.profile-icon{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#f97316);color:#1a1005;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;border:2px solid #fff;box-shadow:0 4px 12px rgba(249,115,22,.35);text-decoration:none}
 a.profile-icon-link{text-decoration:none !important;background:none !important;padding:0 !important}
-.profile-menu{display:none;position:absolute;right:0;top:44px;background:#fff;min-width:220px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.2);overflow:hidden;z-index:100}
+.profile-menu{display:none;position:absolute;right:0;top:46px;background:#fff;min-width:230px;border-radius:16px;box-shadow:0 16px 40px rgba(20,16,46,.2);overflow:hidden;z-index:100;border:1px solid var(--line)}
 .profile-wrap:hover .profile-menu,.profile-wrap.open .profile-menu{display:block}
-.profile-menu a{display:block !important;color:var(--navy) !important;padding:10px 14px !important;font-size:14px !important}
-.profile-menu a:hover{background:#f1f5f9 !important}
+.profile-menu a{display:block !important;color:var(--ink) !important;padding:11px 15px !important;font-size:14px !important;border-radius:0 !important;box-shadow:none !important;background:#fff !important}
+.profile-menu a:hover{background:#f5f3ff !important}
 /* FOOTER */
-.footer{background:var(--navy);color:#cbd5e1;margin-top:20px}
-.footer-inner{max-width:1100px;margin:0 auto;padding:26px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px}
-.footer a{color:#e2e8f0;text-decoration:none;font-size:14px}
-.footer a:hover{text-decoration:underline}
-.footer-bottom{border-top:1px solid rgba(255,255,255,.15);text-align:center;padding:12px;font-size:12px;color:#94a3b8}
+.footer{background:#14102e;color:#c4b5fd;margin-top:24px;border-radius:28px 28px 0 0;position:relative;overflow:hidden}
+.footer::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#7c3aed,#06b6d4,#a3e635,#fbbf24);}
+.footer-inner{max-width:1100px;margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:18px;position:relative}
+.footer a{color:#e9e3ff;text-decoration:none;font-size:14px}
+.footer a:hover{color:#fff;text-decoration:underline}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);text-align:center;padding:13px;font-size:12px;color:#a5b4fc}
 @media(max-width:760px){
-  .hero h1{font-size:26px}
+  .navbar{margin:8px 10px 0}
+  .hero h1{font-size:27px}
   .nav-links{display:none;width:100%;flex-direction:column;align-items:stretch;padding-bottom:10px}
   .menu-toggle:checked ~ .nav-inner .nav-links{display:flex}
   .hamburger{display:block}
@@ -94,7 +112,7 @@ a.profile-icon-link{text-decoration:none !important;background:none !important;p
 <header class="navbar">
   <input type="checkbox" id="menu" class="menu-toggle">
   <div class="nav-inner">
-    <a class="brand" href="/"><span class="brand-mark">C</span> CareerNestHub</a>
+    <a class="brand" href="/"><span class="brand-mark">N</span><span>CareerNestHub<small>LEARN • APPLY • GROW</small></span></a>
     <label class="hamburger" for="menu">&#9776;</label>
     <nav class="nav-links">
       <a href="/">Home</a>
@@ -133,34 +151,22 @@ a.profile-icon-link{text-decoration:none !important;background:none !important;p
           </div>
         </div>
       {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a class="highlight" href="{% url 'register' %}">Join Free</a>
+        <a class="highlight" href="{% url 'login' %}">Login</a>
+        <a class="highlight-light" href="{% url 'register' %}">Join Free</a>
       {% endif %}
     </nav>
-  </div>
-  <div style="background:#0f2444;padding:10px 20px;">
-    <form method="GET" action="{% url 'global_search' %}" class="searchbar" style="max-width:1100px;margin:0 auto;display:flex;gap:8px;">
-      <input type="text" name="q" placeholder="Search jobs, skills like python, city like mumbai..." value="{{ request.GET.q }}">
-      <select name="type" style="max-width:150px;">
-        <option value="all" {% if request.GET.type == 'all' %}selected{% endif %}>All</option>
-        <option value="jobs" {% if request.GET.type == 'jobs' %}selected{% endif %}>Jobs</option>
-        <option value="internships" {% if request.GET.type == 'internships' %}selected{% endif %}>Internships</option>
-        <option value="courses" {% if request.GET.type == 'courses' %}selected{% endif %}>Courses</option>
-      </select>
-      <button class="btn small" type="submit">Search</button>
-    </form>
   </div>
 </header>
 
 {% block hero %}
 <div class="hero">
   <div class="hero-inner">
-    <h1>Find jobs, internships & skill courses in one nest.</h1>
+    <h1>Find jobs, internships &amp; skill courses in one nest.</h1>
     <p>Simple listings for students and easy posting for companies. No clutter — just apply or enroll.</p>
     <div class="hero-actions">
-      <a class="btn" href="{% url 'job_list' %}">Browse Jobs</a>
-      <a class="btn secondary" href="{% url 'internship_list' %}">Find Internships</a>
-      <a class="btn secondary" href="{% url 'cource_list' %}">Explore Courses</a>
+      <a class="btn" style="background:#fff;color:#4c1d95 !important;box-shadow:none;" href="{% url 'job_list' %}">Browse Jobs</a>
+      <a class="btn secondary" style="background:transparent;color:#fff !important;border-color:rgba(255,255,255,.5)" href="{% url 'internship_list' %}">Find Internships</a>
+      <a class="btn secondary" style="background:transparent;color:#fff !important;border-color:rgba(255,255,255,.5)" href="{% url 'cource_list' %}">Explore Courses</a>
     </div>
   </div>
 </div>
@@ -173,8 +179,9 @@ a.profile-icon-link{text-decoration:none !important;background:none !important;p
 <footer class="footer">
   <div class="footer-inner">
     <div>
-      <b style="color:#fff">CareerNestHub</b>
-      <p style="font-size:14px">Jobs, internships and practical courses for students and freshers.</p>
+      <b style="color:#fff;font-size:17px;">CareerNestHub</b>
+      <p style="font-size:14px;max-width:340px;">A creative nest where students hatch careers — jobs, internships and bite-size courses.</p>
+      <span style="display:inline-block;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);padding:5px 12px;border-radius:999px;font-size:12px;">Made for freshers • India</span>
     </div>
     <div>
       <b style="color:#fff">Explore</b><br>
@@ -189,15 +196,12 @@ a.profile-icon-link{text-decoration:none !important;background:none !important;p
       <a href="{% url 'logout' %}">Logout</a>
     </div>
   </div>
-  <div class="footer-bottom">© 2026 CareerNestHub — Original simple design. All rights reserved.</div>
+  <div class="footer-bottom">© 2026 CareerNestHub — Original creative design. All rights reserved.</div>
 </footer>
 <script>
 function toggleProfile(e){
-  // Single click opens menu, second click follows link.
-  // First click: open menu and stop navigation so user can choose.
   var wrap = document.querySelector('.profile-wrap');
   if(wrap && !wrap.classList.contains('open')){ e.preventDefault(); e.stopPropagation(); wrap.classList.add('open'); }
-  // if already open, allow link to work (go to profile)
 }
 document.addEventListener('click', function(){ document.querySelectorAll('.profile-wrap.open').forEach(function(el){ el.classList.remove('open'); }); });
 </script>

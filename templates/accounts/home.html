@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}CareerNestHub - Hatch Your Career{% endblock %}
+
+{% block hero %}
+<style>
+.cx-wrap{max-width:1100px;margin:0 auto;padding:34px 20px 10px;display:grid;grid-template-columns:1.15fr .85fr;gap:26px;align-items:center;}
+.cx-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e9e4ff;border-radius:999px;padding:6px 14px;font-size:12px;font-weight:800;color:#5b21b6;box-shadow:0 6px 16px rgba(124,58,237,.12);}
+.cx-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px #dcfce7;}
+.cx-h1{font-size:46px;line-height:1.02;letter-spacing:-.03em;margin:14px 0 10px;color:#14102e;}
+.cx-grad{background:linear-gradient(90deg,#7c3aed,#4f46e5 40%,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.cx-sub{color:#6b6a8a;font-size:15px;max-width:480px;margin:0 0 18px;}
+.cx-search{background:#fff;border:1px solid #e9e4ff;border-radius:20px;padding:10px;box-shadow:0 16px 40px rgba(76,29,149,.14);display:grid;grid-template-columns:1fr 150px 1fr auto;gap:8px;}
+.cx-search input,.cx-search select{border:1px solid #f1efff;background:#faf9ff;border-radius:12px;padding:12px;font-size:14px;width:100%;}
+.cx-go{background:linear-gradient(135deg,#fbbf24,#f97316);border:none;color:#231303;font-weight:800;border-radius:12px;padding:12px 24px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;white-space:nowrap;}
+.cx-trust{display:flex;align-items:center;gap:10px;margin-top:14px;font-size:13px;color:#6b6a8a;font-weight:600;}
+.cx-faces{display:flex;}
+.cx-faces span{width:30px;height:30px;border-radius:50%;border:2.5px solid #fff;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;margin-left:-8px;}
+.cx-faces span:first-child{margin-left:0;}
+.cx-visual{position:relative;min-height:420px;}
+.cx-blob{position:absolute;inset:10px 0;background:url("{% static 'images/hero-remote.jpg' %}") center/cover no-repeat;border-radius:28px;transform:none;opacity:1;border:1px solid #e9e4ff;outline:6px solid #fff;box-shadow:0 18px 44px rgba(76,29,149,.20);}
+.cx-blob::after{content:none;display:none;}
+.cx-card{position:absolute;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid #e9e4ff;border-left:5px solid #7c3aed;border-radius:16px;padding:12px 14px;box-shadow:0 12px 30px rgba(20,16,46,.35);width:230px;animation:float 5s ease-in-out infinite;}
+.cx-card h4{margin:0 0 4px;font-size:14px;color:#14102e;}
+.cx-card small{color:#6b6a8a;font-size:12px;}
+.cx-tag{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:999px;margin-bottom:8px;border:1px solid rgba(0,0,0,.06);}
+.cx-c1{top:20px;left:14px;border-left-color:#22c55e;}
+.cx-c2{top:142px;right:14px;border-left-color:#7c3aed;animation-delay:1.2s;}
+.cx-c3{bottom:16px;left:20px;animation-delay:2.1s;width:250px;border-left-color:#f97316;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cx-bar{max-width:1100px;margin:18px auto 0;padding:0 20px;}
+.cx-bar-in{background:#14102e;color:#fff;border-radius:18px;padding:14px 20px;display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap;position:relative;overflow:hidden;}
+.cx-bar-in::before{content:"";position:absolute;width:300px;height:300px;background:radial-gradient(circle,rgba(124,58,237,.5),transparent 65%);right:-60px;top:-120px;}
+.cx-stat b{font-size:22px;display:block;}
+.cx-stat span{font-size:12px;color:#c4b5fd;}
+.cx-strip{background:#fff;border:1px solid #e9e4ff;border-radius:999px;margin:18px auto 0;padding:10px 12px;max-width:1100px;box-sizing:border-box;overflow:hidden;white-space:nowrap;}
+.cx-marquee{display:inline-flex;white-space:nowrap;animation:scroll 22s linear infinite;font-weight:800;font-size:13px;color:#4c1d95;letter-spacing:.04em;will-change:transform;}
+.cx-marquee i{font-style:normal;background:#f5f3ff;border:1px solid #e9e4ff;border-radius:999px;padding:5px 14px;margin:0 6px;display:inline-block;}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.cx-sec{max-width:1100px;margin:0 auto;padding:28px 20px 0;}
+.cx-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+.cx-head h2{margin:0;font-size:24px;letter-spacing:-.02em;}
+.cx-head p{margin:4px 0 0;color:#6b6a8a;font-size:13px;}
+.cx-link{background:#fff;border:1.5px solid #e9e4ff;padding:8px 16px;border-radius:999px;font-size:13px;font-weight:800;color:#4c1d95;}
+.cx-bento{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.cx-job{background:#fff;border:1px solid #e9e4ff;border-radius:20px;padding:0;overflow:hidden;transition:.2s;}
+.cx-job:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(76,29,149,.16);}
+.cx-top{height:6px;background:linear-gradient(90deg,#7c3aed,#06b6d4);}
+.cx-bento .cx-job:nth-child(6n+2) .cx-top{background:linear-gradient(90deg,#f59e0b,#ef4444);}
+.cx-bento .cx-job:nth-child(6n+3) .cx-top{background:linear-gradient(90deg,#22c55e,#06b6d4);}
+.cx-bento .cx-job:nth-child(6n+4) .cx-top{background:linear-gradient(90deg,#ec4899,#7c3aed);}
+.cx-bento .cx-job:nth-child(6n+5) .cx-top{background:linear-gradient(90deg,#3b82f6,#06b6d4);}
+.cx-bento .cx-job:nth-child(6n+6) .cx-top{background:linear-gradient(90deg,#a3e635,#06b6d4);}
+.cx-body{padding:16px;}
+.cx-logo{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:20px;margin-bottom:10px;background:#7c3aed;}
+.cx-bento .cx-job:nth-child(6n+2) .cx-logo{background:#0891b2;}
+.cx-bento .cx-job:nth-child(6n+3) .cx-logo{background:#ea580c;}
+.cx-bento .cx-job:nth-child(6n+4) .cx-logo{background:#db2777;}
+.cx-bento .cx-job:nth-child(6n+5) .cx-logo{background:#059669;}
+.cx-bento .cx-job:nth-child(6n+6) .cx-logo{background:#4f46e5;}
+.cx-job h3{margin:0 0 4px;font-size:16px;}
+.cx-meta{font-size:12px;color:#6b6a8a;margin-bottom:12px;}
+.cx-pills{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0;}
+.cx-pills a{background:#fff;border:1.5px solid #e9e4ff;border-radius:999px;padding:9px 16px;font-size:13px;font-weight:700;color:#3b3860;}
+.cx-pills a:hover{background:#14102e;color:#fff;border-color:#14102e;}
+.cx-split{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cx-panel{border-radius:20px;padding:20px;color:#fff;position:relative;overflow:hidden;}
+.cx-panel.dark{background:linear-gradient(135deg,#14102e,#312e81);}
+.cx-panel.light{background:linear-gradient(135deg,#06b6d4,#3b82f6);}
+.cx-panel h3{margin:0 0 6px;font-size:19px;}
+.cx-panel p{margin:0 0 14px;font-size:13px;opacity:.85;}
+.cx-white{background:#fff;color:#14102e;border:none;border-radius:999px;padding:10px 20px;font-weight:800;font-size:13px;display:inline-block;}
+.cx-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;}
+.cx-step{background:#fff;border:1px solid #e9e4ff;border-radius:20px;padding:20px;position:relative;}
+.cx-num{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#7c3aed,#06b6d4);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+@media(max-width:920px){.cx-wrap{grid-template-columns:1fr;}.cx-h1{font-size:32px;}.cx-search{grid-template-columns:1fr;}.cx-visual{min-height:340px;}.cx-bento,.cx-split,.cx-steps{grid-template-columns:1fr;}.cx-card{width:200px;}}
+</style>
+
+<div style="background:transparent;">
+<div class="cx-wrap">
+  <div>
+    <span class="cx-eyebrow"><span class="cx-dot"></span> LIVE — {{ job_count }} jobs • {{ internship_count }} internships • {{ course_count }} courses</span>
+    <h1 class="cx-h1">Hatch your career in a <span class="cx-grad">creative nest.</span></h1>
+    <p class="cx-sub">Not another boring portal. Search smart, learn bite-size skills and apply in one click — built for students &amp; freshers.</p>
+    <form method="GET" action="{% url 'global_search' %}" class="cx-search">
+      <input type="text" name="q" placeholder="Try python, design, marketing..." aria-label="Skills, designations or companies">
+      <select name="type" aria-label="Search type">
+        <option value="all">All</option>
+        <option value="jobs">Jobs</option>
+        <option value="internships">Internships</option>
+        <option value="courses">Courses</option>
+      </select>
+      <input type="text" name="location" placeholder="City? e.g. mumbai" aria-label="Location">
+      <button class="cx-go" type="submit">Search</button>
+    </form>
+    <div class="cx-trust">
+      <div class="cx-faces">
+        <span style="background:#7c3aed;">A</span><span style="background:#06b6d4;">R</span><span style="background:#f97316;">S</span><span style="background:#22c55e;">+</span>
+      </div>
+      Joined by students from 120+ colleges • Free to start
+    </div>
+  </div>
+  <div class="cx-visual">
+    <div class="cx-blob"></div>
+    <div class="cx-card cx-c1">
+      <span class="cx-tag" style="background:#dcfce7;color:#166534;">HIRED</span>
+      <h4>Python Intern → Offer</h4>
+      <small>Mumbai • Stipend credited</small>
+    </div>
+    <div class="cx-card cx-c2">
+      <span class="cx-tag" style="background:#ede9fe;color:#5b21b6;">INTERVIEW</span>
+      <h4>UI Design — Tomorrow 11am</h4>
+      <small>2 rounds • Remote friendly</small>
+    </div>
+    <div class="cx-card cx-c3">
+      <span class="cx-tag" style="background:#fef9c3;color:#854d0e;">COURSE 78%</span>
+      <h4>Django Job Track</h4>
+      <div style="background:#f1f5f9;border-radius:999px;height:8px;margin-top:8px;overflow:hidden;"><div style="width:78%;height:100%;background:linear-gradient(90deg,#7c3aed,#06b6d4);"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="cx-bar"><div class="cx-bar-in">
+  <div class="cx-stat"><b>{{ job_count }}+</b><span>Live jobs</span></div>
+  <div class="cx-stat"><b>{{ internship_count }}+</b><span>Internships</span></div>
+  <div class="cx-stat"><b>{{ course_count }}+</b><span>Skill courses</span></div>
+  <div class="cx-stat"><b>1-click</b><span>Apply / Enroll</span></div>
+  <a href="{% url 'register' %}" class="cx-white">Join free →</a>
+</div></div>
+
+<div class="cx-strip"><div class="cx-marquee">
+  <i>python</i><i>django</i><i>ui design</i><i>marketing</i><i>data analytics</i><i>hr</i><i>sales</i><i>remote</i><i>mumbai</i><i> fresher </i>
+  <i>python</i><i>django</i><i>ui design</i><i>marketing</i><i>data analytics</i><i>hr</i><i>sales</i><i>remote</i><i>mumbai</i><i> fresher </i>
+</div></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="cx-sec">
+  <div class="cx-head">
+    <div><h2>Fresh drops, picked for you</h2><p>Latest jobs from real companies on this platform — no fakes.</p></div>
+    <a class="cx-link" href="{% url 'job_list' %}">View all jobs →</a>
+  </div>
+  <div class="cx-bento">
+    {% for j in latest_jobs %}
+    <div class="cx-job">
+      <div class="cx-top"></div>
+      <div class="cx-body">
+        <div class="cx-logo">{{ j.title|default:"C"|slice:":1"|upper }}</div>
+        <h3>{{ j.title|default:"Untitled job"|truncatechars:30 }}</h3>
+        <div class="cx-meta">{{ j.location|default:"India" }} • {{ j.skills|default:"General"|truncatechars:34 }}</div>
+        <a class="btn small" href="{% url 'job_details' j.id %}">View job →</a>
+      </div>
+    </div>
+    {% empty %}
+      <div class="card">No jobs yet — providers can post after login.</div>
+    {% endfor %}
+  </div>
+
+  <div class="cx-pills">
+    <a href="{% url 'job_list' %}?q=remote">Remote</a>
+    <a href="{% url 'job_list' %}?skill=python">Python</a>
+    <a href="{% url 'job_list' %}?skill=design">Design</a>
+    <a href="{% url 'job_list' %}?skill=marketing">Marketing</a>
+    <a href="{% url 'job_list' %}?skill=data">Data</a>
+    <a href="{% url 'job_list' %}?skill=hr">HR</a>
+    <a href="{% url 'internship_list' %}">Internships</a>
+    <a href="{% url 'cource_list' %}">Courses</a>
+  </div>
+</div>
+
+<div class="cx-sec">
+  <div class="cx-split">
+    <div class="cx-panel dark">
+      <h3>Internships that teach, not fetch coffee.</h3>
+      <p>Short, real-work internships for students. {{ internship_count }} live now.</p>
+      {% for i in latest_internships|slice:":2" %}
+        <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:13px;">
+          <b>{{ i.title|default:"Untitled internship" }}</b> — {{ i.location|default:"India" }} • {{ i.duration|default:"Flexible" }}
+          <a href="{% url 'internship_details' i.id %}" style="color:#fbbf24;font-weight:800;"> View →</a>
+        </div>
+      {% empty %}<p>No internships yet.</p>{% endfor %}
+      <a class="cx-white" href="{% url 'internship_list' %}">All internships</a>
+    </div>
+    <div class="cx-panel light">
+      <h3>Bite-size courses. Big career jumps.</h3>
+      <p>Practical tracks, not 40-hour theory. {{ course_count }} live now.</p>
+      {% for c in latest_courses|slice:":2" %}
+        <div style="background:rgba(255,255,255,.9);border-radius:12px;padding:10px 12px;margin-bottom:8px;font-size:13px;color:#0c1a3a;">
+          <b>{{ c.title|default:"Untitled course" }}</b> — {{ c.duration|default:"Self-paced" }} • {{ c.price|default:"Free" }}
+          <a href="{% url 'cource_detail' c.id %}" style="color:#1d4ed8;font-weight:800;"> Enroll →</a>
+        </div>
+      {% empty %}<p>No courses yet.</p>{% endfor %}
+      <a class="cx-white" href="{% url 'cource_list' %}">All courses</a>
+    </div>
+  </div>
+</div>
+
+<div class="cx-sec" style="padding-bottom:30px;">
+  <div class="cx-head">
+    <div><h2>Your 3-step hatch plan</h2><p>Search → Login → Apply. New? Register once, then login forever.</p></div>
+  </div>
+  <div class="cx-steps">
+    <div class="cx-step"><div class="cx-num">1</div><b>Search your vibe</b><br><span style="font-size:13px;color:#6b6a8a;">Use the nest search above. Filter by skill + city like a pro.</span></div>
+    <div class="cx-step"><div class="cx-num">2</div><b>Login / Join free</b><br><span style="font-size:13px;color:#6b6a8a;">Students login to apply, companies login to post. New here? <a href="{% url 'register' %}">Create account</a>.</span></div>
+    <div class="cx-step"><div class="cx-num">3</div><b>Apply in 1-click</b><br><span style="font-size:13px;color:#6b6a8a;">Track applications, get certificates, grow skills side-by-side.</span></div>
+  </div>
+  <p style="text-align:center;margin-top:16px;">
+    <a class="btn" href="{% url 'login' %}">Go to Login →</a>
+    &nbsp;<a class="btn secondary" href="{% url 'register' %}">Create account</a>
+  </p>
+</div>
+{% endblock %}
